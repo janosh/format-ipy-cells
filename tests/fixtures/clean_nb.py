@@ -1,14 +1,17 @@
 # %%
-cell1 = "hello"
+foo = "hello"
 
 
 # %% a comment following a cell delimeter without space
-cell2 = "world"
+bar = "world"
 
 
 # %% a comment following a cell delimeter with too much space
-cell2 = "world"
+baz = 42
 
 
-# %%
-cell3 = "!"
+# %% empty cell with comment
+
+
+# %% another comment
+bang = "!"

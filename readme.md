@@ -20,7 +20,7 @@ Add this to your `.pre-commit-config.yaml`:
 ```yml
 repos
   - repo: https://github.com/janosh/format-ipy-cells
-    rev: v0.1.0
+    rev: v0.1.1
     hooks:
       - id: format-ipy-cells
 ```
