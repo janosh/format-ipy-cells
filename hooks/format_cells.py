@@ -65,6 +65,23 @@ def format_cells(filename: str) -> None:
     # # %%
     # ---
     text = re.sub(r"\n+# %%", r"\n\n\n# %%", text)
+    # only leave one blank line between cell delimeters and import statements
+    # for isort compatibility (https://github.com/PyCQA/isort/issues/1719)
+    text = re.sub(r"((?:from |import ).+)\n\n\n# %%", r"\g<1>\n\n# %%", text)
+
+    # delete last cell in file if it contains no code
+    # ---
+    # # %%
+    # some_code = 'here'
+    #
+    # # %%
+    #
+    # >>>
+    # # %%
+    # some_code = 'here'
+    #
+    # ---
+    text = re.sub(r"\s+# %%\s+$", r"\n", text)
 
     # strip empty lines from start of file
     # ---
