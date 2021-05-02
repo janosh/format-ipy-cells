@@ -1,4 +1,3 @@
-import os
 from shutil import copyfile
 
 from hooks.format_cells import main
@@ -22,5 +21,3 @@ def test_format_cells():
     assert (
         raw_fixed == clean
     ), f"formatted file '{tmp_path}' differs from target '{clean_path}'"
-
-    os.remove(tmp_path)

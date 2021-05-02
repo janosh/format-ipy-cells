@@ -7,7 +7,11 @@ from importlib_metadata import version
 
 def format_cells(filename: str) -> None:
     with open(filename) as file:
-        text = file.read()
+        orig_text = text = file.read()
+
+    # use re.MULTILINE flag (equals inline modifier (?m)) to make ^ and $ match
+    # and start/end of each line instead of just start/end of whole string
+    # https://docs.python.org/3/library/re.html#re.MULTILINE
 
     # ensure single space between hash and double-percent
     # ---
@@ -15,7 +19,7 @@ def format_cells(filename: str) -> None:
     # >>>
     # # %%
     # ---
-    text = re.sub(r"#\s*%%", r"# %%", text)
+    text = re.sub(r"(?m)^#\s*%%", r"# %%", text)
 
     # ensure single space between cell delimeter and possible comment on same line
     # ---
@@ -26,9 +30,9 @@ def format_cells(filename: str) -> None:
     # # %% some comment
     # ---
     # delete if more than 1
-    text = re.sub(r"# %%[^\S\r\n]{2,}(\S)", r"# %% \g<1>", text)
+    text = re.sub(r"(?m)^# %%[^\S\r\n]{2,}(\S)", r"# %% \g<1>", text)
     # insert 1 if none
-    text = re.sub(r"# %%(\S)", r"# %% \g<1>", text)
+    text = re.sub(r"(?m)^# %%(\S)", r"# %% \g<1>", text)
 
     # remove empty cells
     # ---
@@ -38,7 +42,7 @@ def format_cells(filename: str) -> None:
     # >>>
     # # %% some comment
     # ---
-    text = re.sub(r"# %%([^\n]+)(?:\s+# %%[^ ])+", r"# %%\g<1>", text)
+    text = re.sub(r"(?m)^# %%([^\n]+)(?:\s+# %%[^ ])+", r"# %%\g<1>", text)
 
     # remove empty lines from start of cell
     # ---
@@ -49,7 +53,7 @@ def format_cells(filename: str) -> None:
     # # %%
     # first_code = 'here'
     # ---
-    text = re.sub(r"# %%([^\n]+)\n{2,}", r"# %%\g<1>\n", text)
+    text = re.sub(r"(?m)^# %%([^\n]+)\n{2,}", r"# %%\g<1>\n", text)
 
     # ensure every cell delimeters has two preceding blank lines
     # adds/deletes lines if there are less/more
@@ -64,12 +68,9 @@ def format_cells(filename: str) -> None:
     #
     # # %%
     # ---
-    text = re.sub(r"\n+# %%", r"\n\n\n# %%", text)
-    # only leave one blank line between cell delimeters and import statements
-    # for isort compatibility (https://github.com/PyCQA/isort/issues/1719)
-    text = re.sub(r"((?:from |import ).+)\n\n\n# %%", r"\g<1>\n\n# %%", text)
+    text = re.sub(r"(?m)\n+^# %%", r"\n\n\n# %%", text)
 
-    # delete last cell in file if it contains no code
+    # delete last cell in file if it contains no code and no comment
     # ---
     # # %%
     # some_code = 'here'
@@ -81,7 +82,7 @@ def format_cells(filename: str) -> None:
     # some_code = 'here'
     #
     # ---
-    text = re.sub(r"\s+# %%\s+$", r"\n", text)
+    text = re.sub(r"(?m)\s+^# %%\s*\Z", r"\n", text)
 
     # strip empty lines from start of file
     # ---
@@ -94,6 +95,11 @@ def format_cells(filename: str) -> None:
 
     with open(filename, "w") as file:
         file.write(text)
+
+    if orig_text != text:
+        print(f"Modified {filename}")
+    else:
+        print(f"Nothing to do in {filename}")
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:

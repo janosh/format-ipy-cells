@@ -5,13 +5,55 @@
 [![This project supports Python 3.6+](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://python.org/downloads)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
-[`pre-commit`](https://pre-commit.com) hook and Python code formatter that ensures iPython cell delimiters (`# %%`) are preceded by two empty lines, removes empty cells and separates same-line comments by a single space.
+[`pre-commit`](https://pre-commit.com) hook and Python code formatter for iPython cell delimiters (`# %%`). Ensures
+
+- cells are preceded by two empty lines:
+
+    ```py
+    # %%
+    foo='bar'
+    # %%
+    ```
+
+    ```py
+    # %%
+    foo='bar'
+
+
+    # %%
+    ```
+
+- empty cells are removed:
+
+    ```py
+    # %%
+
+    # %%
+    ```
+
+    ```py
+    # %%
+    ```
+
+- same-line comments are separated by a single space:
+
+    ```py
+    # %%some comment
+    foo = 'bar'
+    # %%    another comment
+    ```
+
+    ```py
+    # %% some comment
+    foo = 'bar'
+    # %% another comment
+    ```
 
 ## Usage as CLI
 
-`format-ipy-cells` has the following flags:
-
-- `--filenames` (required): File paths to format.
+```sh
+format-ipy-cells path/to/one-or-more/files
+```
 
 ## Install as `pre-commit` hook
 
@@ -20,7 +62,7 @@ Add this to your `.pre-commit-config.yaml`:
 ```yml
 repos
   - repo: https://github.com/janosh/format-ipy-cells
-    rev: v0.1.2
+    rev: v0.1.3
     hooks:
       - id: format-ipy-cells
 ```
