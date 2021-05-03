@@ -1,6 +1,6 @@
 from shutil import copyfile
 
-from hooks.format_cells import main
+from hooks.format_ipy_cells import main
 
 raw_path = "tests/fixtures/raw_nb.py"
 tmp_path = "tests/fixtures/tmp_nb.py"

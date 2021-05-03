@@ -1,13 +1,15 @@
 import re
 from argparse import ArgumentParser
+from importlib.metadata import version
 from typing import Optional, Sequence
-
-from importlib_metadata import version
 
 
 def format_cells(filename: str) -> None:
     with open(filename) as file:
         orig_text = text = file.read()
+
+    # strip whitespace from end of every line
+    text = "\n".join(line.rstrip() for line in text.split("\n"))
 
     # use re.MULTILINE flag (equals inline modifier (?m)) to make ^ and $ match
     # and start/end of each line instead of just start/end of whole string
@@ -29,10 +31,8 @@ def format_cells(filename: str) -> None:
     # # %% some comment
     # # %% some comment
     # ---
-    # delete if more than 1
-    text = re.sub(r"(?m)^# %%[^\S\r\n]{2,}(\S)", r"# %% \g<1>", text)
-    # insert 1 if none
-    text = re.sub(r"(?m)^# %%(\S)", r"# %% \g<1>", text)
+    # [^\S\n\r] = not non-whitespace and not new line or carriage return
+    text = re.sub(r"(?m)^# %%[^\S\n\r]*(\S)", r"# %% \g<1>", text)
 
     # remove empty cells
     # ---
@@ -70,6 +70,15 @@ def format_cells(filename: str) -> None:
     # ---
     text = re.sub(r"(?m)\n+^# %%", r"\n\n\n# %%", text)
 
+    # strip empty lines from start of file
+    # ---
+    #
+    # # %%
+    # >>>
+    # # %%
+    # ---
+    text = text.lstrip()
+
     # delete last cell in file if it contains no code and no comment
     # ---
     # # %%
@@ -84,22 +93,11 @@ def format_cells(filename: str) -> None:
     # ---
     text = re.sub(r"(?m)\s+^# %%\s*\Z", r"\n", text)
 
-    # strip empty lines from start of file
-    # ---
-    #
-    # # %%
-    # >>>
-    # # %%
-    # ---
-    text = text.lstrip()
-
     with open(filename, "w") as file:
         file.write(text)
 
     if orig_text != text:
         print(f"Modified {filename}")
-    else:
-        print(f"Nothing to do in {filename}")
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
