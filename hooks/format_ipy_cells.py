@@ -106,8 +106,8 @@ def format_cells(filename: str) -> None:
     with open(filename) as file:
         orig_text = text = file.read()
 
-    # strip whitespace from start + end of file and from end of every line
-    text = "\n".join(line.rstrip() for line in text.strip().split("\n"))
+    # strip whitespace from start of file and from end of every line
+    text = "\n".join(line.rstrip() for line in text.lstrip().split("\n"))
 
     text = format_cell_delimeters(text)
 
