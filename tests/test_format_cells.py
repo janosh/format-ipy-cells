@@ -2,6 +2,7 @@ from shutil import copyfile
 
 from hooks.format_ipy_cells import main
 
+
 raw_path = "tests/fixtures/raw_nb.py"
 tmp_path = "tests/fixtures/tmp_nb.py"
 clean_path = "tests/fixtures/clean_nb.py"
