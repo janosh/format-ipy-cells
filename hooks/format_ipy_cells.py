@@ -131,11 +131,12 @@ def format_cells(filename: str) -> None:
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
+
     parser = ArgumentParser("Format iPython Cells")
 
     fic_version = version("format-ipy-cells")
     parser.add_argument(
-        "-v", "--version", action="version", version=f"%(prog)s {fic_version}"
+        "-v", "--version", action="version", version=f"%(prog)s v{fic_version}"
     )
 
     parser.add_argument("filenames", nargs="*", help="Filenames to format")
@@ -144,6 +145,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     for filename in args.filenames:
         format_cells(filename)
+
+    return 0
 
 
 if __name__ == "__main__":

@@ -1,6 +1,9 @@
 # Install these hooks with `pre-commit install`.
-# Update with `pre-commit autoupdate`.
-# Setup CI and readme badge at https://pre-commit.ci.
+# Setup CI at https://pre-commit.ci.
+
+ci:
+  autoupdate_schedule: quarterly
+
 repos:
   - repo: https://github.com/PyCQA/isort
     rev: 5.8.0
@@ -19,5 +22,9 @@ repos:
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.812
+    hooks:
+      - id: mypy
 
 exclude: tests/fixtures/raw_nb.py
