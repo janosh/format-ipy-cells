@@ -1,4 +1,7 @@
+from importlib.metadata import version
 from shutil import copyfile
+
+import pytest
 
 from hooks.format_ipy_cells import main
 
@@ -22,3 +25,18 @@ def test_format_cells():
     assert (
         raw_fixed == clean
     ), f"formatted file '{tmp_path}' differs from target '{clean_path}'"
+
+
+def test_main_print_version(capsys):
+
+    fic_version = version("format-ipy-cells")
+
+    with pytest.raises(SystemExit):
+        main(["-v"])
+
+    stdout, stderr = capsys.readouterr()
+
+    fic_version = version("format-ipy-cells")
+
+    assert stdout == f"Format iPython Cells v{fic_version}\n"
+    assert stderr == ""
