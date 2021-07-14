@@ -3,7 +3,7 @@ from shutil import copyfile
 
 import pytest
 
-from hooks.format_ipy_cells import main
+from format_ipy_cells.main import main
 
 
 raw_path = "tests/fixtures/raw_nb.py"
