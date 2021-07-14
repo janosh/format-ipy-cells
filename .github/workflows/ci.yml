@@ -3,7 +3,7 @@ name: Tests
 on:
   push:
     branches: [main]
-    paths: ['**.py'] # only run workflow when source files changed
+    paths: ['**.py']  # only run workflow when source files changed
   pull_request:
     branches: [main]
     paths: ['**.py']
@@ -20,11 +20,8 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install this hook
-        run: |
-          pip install .
+      - name: Install format-ipy-cells and test deps
+        run: pip install .[test]
 
       - name: Run tests
-        run: |
-          pip install pytest
-          python -m pytest --durations 0
+        run: python -m pytest

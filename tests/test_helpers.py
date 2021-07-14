@@ -1,4 +1,4 @@
-from hooks.format_ipy_cells import (
+from format_ipy_cells.helpers import (
     delete_last_cell_if_empty,
     ensure_two_blank_lines_preceding_cell,
     format_cell_delimeters,
