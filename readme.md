@@ -2,10 +2,10 @@
 
 [![Tests](https://github.com/janosh/format-ipy-cells/workflows/Tests/badge.svg)](https://github.com/janosh/format-ipy-cells/actions)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/janosh/format-ipy-cells/main.svg)](https://results.pre-commit.ci/latest/github/janosh/format-ipy-cells/main)
-[![This project supports Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org/downloads)
+[![Requires Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org/downloads)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
-[`pre-commit`](https://pre-commit.com) hook and Python code formatter for iPython cell delimiters (`# %%`). Ensures
+[`pre-commit`](https://pre-commit.com) hook and Python code formatter for cell delimiters (`# %%`) in interactive Python notebooks. Ensures
 
 - cells are preceded by two empty lines:
 
@@ -52,7 +52,20 @@
 ## Usage as CLI
 
 ```sh
-format-ipy-cells path/to/one-or-more/files
+format-ipy-cells path/to/file.py
+```
+
+To run on all Python files in a project, use wildcards:
+
+```sh
+format-ipy-cells **/*.py
+```
+
+To get the current version, use `-v/--version`.
+
+```sh
+format-ipy-cells -v
+>>> Format iPython Cells v0.1.5
 ```
 
 ## Install as `pre-commit` hook
