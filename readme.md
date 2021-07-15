@@ -65,7 +65,7 @@ To get the current version, use `-v/--version`.
 
 ```sh
 format-ipy-cells -v
->>> Format iPython Cells v0.1.6
+>>> Format iPython Cells v0.1.7
 ```
 
 ## Install as `pre-commit` hook
@@ -75,7 +75,7 @@ Add this to your `.pre-commit-config.yaml`:
 ```yml
 repos
   - repo: https://github.com/janosh/format-ipy-cells
-    rev: v0.1.6
+    rev: v0.1.7
     hooks:
       - id: format-ipy-cells
 ```
