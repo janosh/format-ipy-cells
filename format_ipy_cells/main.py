@@ -49,9 +49,21 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         "-v", "--version", action="version", version=f"%(prog)s v{fic_version}"
     )
 
+    parser.add_argument("-u", "--usage", action="store_true")
+
     parser.add_argument("filenames", nargs="*", help="Filenames to format")
 
     args = parser.parse_args(argv)
+
+    if args.usage:
+        if args.filenames:
+            raise ValueError(
+                "Bad usage. Don't combine -u/--usage with positional arguments."
+            )
+
+        print("format-ipy-cells path/to/some/file.py or/wildcards/**/*.py")
+
+        return 0
 
     for filename in args.filenames:
         format_cells(filename)
