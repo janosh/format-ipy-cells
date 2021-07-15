@@ -11,7 +11,7 @@ tmp_path = "tests/fixtures/tmp_nb.py"
 clean_path = "tests/fixtures/clean_nb.py"
 
 
-def test_format_cells():
+def test_main_format_cells():
     copyfile(raw_path, tmp_path)
 
     main([tmp_path])
@@ -40,3 +40,20 @@ def test_main_print_version(capsys):
 
     assert stdout == f"Format iPython Cells v{fic_version}\n"
     assert stderr == ""
+
+
+def test_main_print_usage(capsys):
+
+    main(["-u"])
+
+    stdout, stderr = capsys.readouterr()
+
+    assert stdout == "format-ipy-cells path/to/some/file.py or/wildcards/**/*.py\n"
+    assert stderr == ""
+
+    with pytest.raises(ValueError) as excinfo:
+        main(["-u", "setup.py"])
+
+    [msg] = excinfo.value.args
+
+    assert msg == "Bad usage. Don't combine -u/--usage with positional arguments."
