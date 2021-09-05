@@ -5,7 +5,9 @@
 [![Requires Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org/downloads)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
-[`pre-commit`](https://pre-commit.com) hook and Python code formatter for cell delimiters (`# %%`) in interactive Python notebooks. Ensures
+[`pre-commit`](https://pre-commit.com) hook and Python code formatter for cell delimiters (`# %%`) in [VS Code-style interactive Python notebooks](https://code.visualstudio.com/docs/python/jupyter-support-py).
+
+This formatter ensures
 
 - cells are preceded by two empty lines:
 
