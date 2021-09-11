@@ -39,4 +39,20 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
 
+  - repo: https://github.com/PyCQA/pydocstyle
+    rev: 6.1.1
+    hooks:
+      - id: pydocstyle
+        # D100: Missing docstring in public module
+        # D104: Missing docstring in public package
+        # D205: 1 blank line required between summary line and description
+        # D415: First line should end with ., ? or !
+        args: [--convention=google, '--add-ignore=D100,D104,D205,D415']
+        exclude: tests
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.1.0
+    hooks:
+    - id: codespell
+
 exclude: tests/fixtures/raw_nb.py

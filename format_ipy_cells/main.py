@@ -13,6 +13,12 @@ from format_ipy_cells.helpers import (
 
 
 def format_cells(filename: str) -> None:
+    """Open specified file, apply all helper functions to format ipython cells
+    and write changes back to file.
+
+    Args:
+        filename (str): File to format.
+    """
     with open(filename) as file:
         orig_text = text = file.read()
 
@@ -41,7 +47,11 @@ def format_cells(filename: str) -> None:
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
+    """The format-ipy-cells CLI interface.
 
+    Returns:
+        int: 0 if format-ipy-cells exits successfully else returns an error code.
+    """
     parser = ArgumentParser("Format iPython Cells")
 
     fic_version = version("format-ipy-cells")
@@ -72,4 +82,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == "__main__":
-    exit(main())
+    raise SystemError(main())
