@@ -1,28 +1,28 @@
 from format_ipy_cells.helpers import (
     delete_last_cell_if_empty,
     ensure_two_blank_lines_preceding_cell,
-    format_cell_delimeters,
-    format_comments_after_cell_delimeters,
+    format_cell_delimiters,
+    format_comments_after_cell_delimiters,
     remove_empty_cells,
     remove_empty_lines_starting_cell,
 )
 
 
-def test_format_cell_delimeters():
+def test_format_cell_delimiters():
 
-    out = format_cell_delimeters("#    %%")
+    out = format_cell_delimiters("#    %%")
     assert out == "# %%"
 
-    out = format_cell_delimeters("#%%")
+    out = format_cell_delimiters("#%%")
     assert out == "# %%"
 
 
-def test_format_comments_after_cell_delimeters():
+def test_format_comments_after_cell_delimiters():
 
-    out = format_comments_after_cell_delimeters("# %%some comment")
+    out = format_comments_after_cell_delimiters("# %%some comment")
     assert out == "# %% some comment"
 
-    out = format_comments_after_cell_delimeters("# %%     another comment")
+    out = format_comments_after_cell_delimiters("# %%     another comment")
     assert out == "# %% another comment"
 
 
@@ -45,15 +45,15 @@ def test_remove_empty_cells():
 
 
 def test_remove_empty_lines_starting_cell():
-    # cell with single blank line between cell delimeter and first code line
+    # cell with single blank line between cell delimiter and first code line
     out = remove_empty_lines_starting_cell("# %%\n\nfoo = 'bar'")
     assert out == "# %%\nfoo = 'bar'"
 
-    # cell with 4 blank lines between cell delimeter and first code line
+    # cell with 4 blank lines between cell delimiter and first code line
     out = remove_empty_lines_starting_cell("# %%\n\n\n\nfoo = 'bar'")
     assert out == "# %%\nfoo = 'bar'"
 
-    # cell with 4 blank and spaces lines between cell delimeter and first code line
+    # cell with 4 blank and spaces lines between cell delimiter and first code line
     out = remove_empty_lines_starting_cell("# %%\n\t\t\n  \n    \nfoo = 'bar'")
     assert out == "# %%\nfoo = 'bar'"
 

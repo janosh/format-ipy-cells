@@ -6,7 +6,7 @@ import re
 # https://docs.python.org/3/library/re.html#re.MULTILINE
 
 
-def format_cell_delimeters(text: str) -> str:
+def format_cell_delimiters(text: str) -> str:
     """Ensure single space between hash and double-percent.
 
     --- before ---
@@ -19,8 +19,8 @@ def format_cell_delimeters(text: str) -> str:
     return re.sub(r"(?m)^#\s*%%", r"# %%", text)
 
 
-def format_comments_after_cell_delimeters(text: str) -> str:
-    """Ensure single space between cell delimeter and possible comment on same line.
+def format_comments_after_cell_delimiters(text: str) -> str:
+    """Ensure single space between cell delimiter and possible comment on same line.
 
     --- before ---
     # %%some comment
@@ -64,7 +64,7 @@ def remove_empty_lines_starting_cell(text: str) -> str:
 
 
 def ensure_two_blank_lines_preceding_cell(text: str) -> str:
-    """Ensure every cell delimeters has two preceding blank lines.
+    """Ensure every cell delimiters has two preceding blank lines.
     Adds/deletes lines if there are less/more.
 
     --- before ---
