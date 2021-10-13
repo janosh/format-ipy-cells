@@ -1,13 +1,9 @@
-
 #  %%
 foo = "hello"
-#  %%a comment following a cell delimeter without space
+#  %%a comment following a cell delimiter without space
 bar = "world"
-#  %%       a comment following a cell delimeter with too much space
+#  %%       a comment following a cell delimiter with too much space
 baz = 42
-
-
-
 
 
 #  %%    empty cell with comment (should not be removed despite empty)
@@ -16,9 +12,9 @@ baz = 42
 # %%
 
 
-#  %% a commented cell with white space on same line   
+#  %% a commented cell with white space on same line
 
-#  %%     
+#  %%
 
 
 bang = "!"

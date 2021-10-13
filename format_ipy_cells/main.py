@@ -5,8 +5,8 @@ from typing import Optional, Sequence
 from format_ipy_cells.helpers import (
     delete_last_cell_if_empty,
     ensure_two_blank_lines_preceding_cell,
-    format_cell_delimeters,
-    format_comments_after_cell_delimeters,
+    format_cell_delimiters,
+    format_comments_after_cell_delimiters,
     remove_empty_cells,
     remove_empty_lines_starting_cell,
 )
@@ -25,9 +25,9 @@ def format_cells(filename: str) -> None:
     # strip whitespace from start of file and from end of every line
     text = "\n".join(line.rstrip() for line in text.lstrip().split("\n"))
 
-    text = format_cell_delimeters(text)
+    text = format_cell_delimiters(text)
 
-    text = format_comments_after_cell_delimeters(text)
+    text = format_comments_after_cell_delimiters(text)
 
     text = remove_empty_cells(text)
 
