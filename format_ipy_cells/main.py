@@ -1,6 +1,7 @@
+from __future__ import annotations
+
 from argparse import ArgumentParser
 from importlib.metadata import version
-from typing import Optional, Sequence
 
 from format_ipy_cells.helpers import (
     delete_last_cell_if_empty,
@@ -46,7 +47,7 @@ def format_cells(filename: str) -> None:
         print(f"Modified {filename}")
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     """The format-ipy-cells CLI interface.
 
     Returns:
