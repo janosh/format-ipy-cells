@@ -51,9 +51,8 @@ def test_main_print_usage(capsys):
     assert stdout == "format-ipy-cells path/to/some/file.py or/wildcards/**/*.py\n"
     assert stderr == ""
 
-    with pytest.raises(ValueError) as excinfo:
+    with pytest.raises(
+        ValueError,
+        match="Bad usage. Don't combine -u/--usage with positional arguments.",
+    ):
         main(["-u", "setup.py"])
-
-    [msg] = excinfo.value.args
-
-    assert msg == "Bad usage. Don't combine -u/--usage with positional arguments."
