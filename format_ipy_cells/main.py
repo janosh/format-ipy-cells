@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.metadata as md
 from argparse import ArgumentParser
+from typing import Sequence
 
 from format_ipy_cells.helpers import (
     delete_last_cell_if_empty,
@@ -13,7 +14,7 @@ from format_ipy_cells.helpers import (
 )
 
 
-def format_cells(filename: str) -> None:
+def fix_file(filename: str) -> int:
     """Open specified file, apply all helper functions to format ipython cells
     and write changes back to file.
 
@@ -40,14 +41,17 @@ def format_cells(filename: str) -> None:
 
     text = delete_last_cell_if_empty(text)
 
-    with open(filename, "w") as file:
-        file.write(text)
-
     if orig_text != text:
-        print(f"Modified {filename}")
+        print(f"Rewriting {filename}")
+
+        with open(filename, "w") as file:
+            file.write(text)
+
+        return 1
+    return 0
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: Sequence[str] = []) -> int:
     """The format-ipy-cells CLI interface.
 
     Returns:
@@ -55,8 +59,7 @@ def main(argv: list[str] | None = None) -> int:
     """
     parser = ArgumentParser()
 
-    pkg_name = "format-ipy-cells"
-    fic_version = md.version(pkg_name)
+    fic_version = md.version(pkg_name := "format-ipy-cells")
     parser.add_argument(
         "-v", "--version", action="version", version=f"{pkg_name} v{fic_version}"
     )
@@ -65,10 +68,12 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
 
-    for filename in args.filenames:
-        format_cells(filename)
+    exit_code = 0
 
-    return 0
+    for filename in args.filenames:
+        exit_code |= fix_file(filename)
+
+    return exit_code
 
 
 if __name__ == "__main__":

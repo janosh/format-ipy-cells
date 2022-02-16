@@ -1,5 +1,4 @@
 __pycache__
 *.egg-info
-tests/fixtures/tmp_nb.py
 .coverage
 .mypy_cache

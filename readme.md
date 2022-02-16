@@ -5,7 +5,7 @@
 [![Requires Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org/downloads)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
-[`pre-commit`](https://pre-commit.com) hook and Python code formatter for cell delimiters (`# %%`) in [VS Code-style interactive Python notebooks](https://code.visualstudio.com/docs/python/jupyter-support-py).
+Python code formatter (and [`pre-commit`](https://pre-commit.com) hook) for cell delimiters (`# %%`) in [VS Code-style interactive Python notebooks](https://code.visualstudio.com/docs/python/jupyter-support-py).
 
 This formatter ensures
 
@@ -51,26 +51,17 @@ This formatter ensures
     # %% another comment
     ```
 
-## Usage as CLI
+## Usage
+
+### CLI
 
 ```sh
 format-ipy-cells path/to/file.py
-```
-
-To run on all Python files in a project, use wildcards:
-
-```sh
+# or
 format-ipy-cells **/*.py
 ```
 
-To get the current version, use `-v/--version`.
-
-```sh
-format-ipy-cells -v
->>> Format iPython Cells v0.1.7
-```
-
-## Install as `pre-commit` hook
+## As `pre-commit` hook
 
 Add this to your `.pre-commit-config.yaml`:
 
