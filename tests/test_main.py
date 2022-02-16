@@ -29,30 +29,13 @@ def test_main_format_cells():
 
 def test_main_print_version(capsys):
 
-    fic_version = version("format-ipy-cells")
-
     with pytest.raises(SystemExit):
-        main(["-v"])
+        ret_val = main(["-v"])
+        assert ret_val == 0
 
     stdout, stderr = capsys.readouterr()
 
     fic_version = version("format-ipy-cells")
 
-    assert stdout == f"Format iPython Cells v{fic_version}\n"
+    assert stdout == f"format-ipy-cells v{fic_version}\n"
     assert stderr == ""
-
-
-def test_main_print_usage(capsys):
-
-    main(["-u"])
-
-    stdout, stderr = capsys.readouterr()
-
-    assert stdout == "format-ipy-cells path/to/some/file.py or/wildcards/**/*.py\n"
-    assert stderr == ""
-
-    with pytest.raises(
-        ValueError,
-        match="Bad usage. Don't combine -u/--usage with positional arguments.",
-    ):
-        main(["-u", "setup.py"])
