@@ -1,8 +1,6 @@
-# https://pre-commit.com#new-hooks
 - id: format-ipy-cells
   name: Format iPython Cells
   description: Format '# %%' cell delimiters in interactive Python notebooks. See https://code.visualstudio.com/docs/python/jupyter-support-py.
   entry: format-ipy-cells
   language: python
   types: [python]
-  stages: [commit, push, manual]

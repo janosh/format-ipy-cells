@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+import importlib.metadata as md
 from argparse import ArgumentParser
-from importlib.metadata import version
 
 from format_ipy_cells.helpers import (
     delete_last_cell_if_empty,
@@ -53,28 +53,17 @@ def main(argv: list[str] | None = None) -> int:
     Returns:
         int: 0 if format-ipy-cells exits successfully else returns an error code.
     """
-    parser = ArgumentParser("Format iPython Cells")
+    parser = ArgumentParser()
 
-    fic_version = version("format-ipy-cells")
+    pkg_name = "format-ipy-cells"
+    fic_version = md.version(pkg_name)
     parser.add_argument(
-        "-v", "--version", action="version", version=f"%(prog)s v{fic_version}"
+        "-v", "--version", action="version", version=f"{pkg_name} v{fic_version}"
     )
-
-    parser.add_argument("-u", "--usage", action="store_true")
 
     parser.add_argument("filenames", nargs="*", help="Filenames to format")
 
     args = parser.parse_args(argv)
-
-    if args.usage:
-        if args.filenames:
-            raise ValueError(
-                "Bad usage. Don't combine -u/--usage with positional arguments."
-            )
-
-        print("format-ipy-cells path/to/some/file.py or/wildcards/**/*.py")
-
-        return 0
 
     for filename in args.filenames:
         format_cells(filename)
