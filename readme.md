@@ -4,6 +4,7 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/janosh/format-ipy-cells/main.svg)](https://results.pre-commit.ci/latest/github/janosh/format-ipy-cells/main)
 [![Requires Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org/downloads)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![PyPI](https://img.shields.io/pypi/v/format-ipy-cells)](https://pypi.org/project/format-ipy-cells)
 
 Python code formatter (and [`pre-commit`](https://pre-commit.com) hook) for cell delimiters (`# %%`) in [VS Code-style interactive Python notebooks](https://code.visualstudio.com/docs/python/jupyter-support-py).
 
@@ -50,6 +51,12 @@ This formatter ensures
     foo = 'bar'
     # %% another comment
     ```
+
+## Installation
+
+```sh
+pip install format-ipy-cells
+```
 
 ## Usage
 
