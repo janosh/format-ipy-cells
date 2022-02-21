@@ -59,9 +59,9 @@ def main(argv: Sequence[str] = []) -> int:
     """
     parser = ArgumentParser()
 
-    fic_version = md.version(pkg_name := "format-ipy-cells")
+    pkg_version = md.version(pkg_name := "format-ipy-cells")
     parser.add_argument(
-        "-v", "--version", action="version", version=f"{pkg_name} v{fic_version}"
+        "-v", "--version", action="version", version=f"{pkg_name} v{pkg_version}"
     )
 
     parser.add_argument("filenames", nargs="*", help="Filenames to format")

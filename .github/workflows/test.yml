@@ -24,4 +24,4 @@ jobs:
         run: pip install .[test]
 
       - name: Run tests
-        run: pytest
+        run: pytest --cov format_ipy_cells
