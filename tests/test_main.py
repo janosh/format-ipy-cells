@@ -1,36 +1,39 @@
 import filecmp
+import shutil
 from importlib.metadata import version
-from shutil import copy2
+from pathlib import Path
 
 import pytest
+from pytest import CaptureFixture, MonkeyPatch
 
 from format_ipy_cells.main import main
 
 
-def test_main_format_cells(capsys, tmpdir):
+def test_main_format_cells(
+    tmp_path: Path, capsys: CaptureFixture[str], monkeypatch: MonkeyPatch
+) -> None:
+    shutil.copy2("tests/fixtures/raw_nb.py", raw_tmp := str(tmp_path / "raw_nb.py"))
+    # test we leave clean file as is and don't print logs about it
     clean_nb = "tests/fixtures/clean_nb.py"
+    shutil.copy2(clean_nb, clean_tmp := str(tmp_path / "clean_nb.py"))
 
-    raw_file = copy2("tests/fixtures/raw_nb.py", tmpdir)
-    # test we leave clean file as is and don't write logs about it
-    clean_file = copy2(clean_nb, tmpdir)
-
-    ret = main((raw_file, clean_file))
+    ret = main((raw_tmp, clean_tmp))
 
     assert ret == 1
-    assert filecmp.cmp(raw_file, clean_nb), "Formatted file has unexpected content"
-    assert filecmp.cmp(clean_file, clean_nb), "clean file should not have changed"
+    assert filecmp.cmp(raw_tmp, clean_nb), "Formatted file has unexpected content"
+    assert filecmp.cmp(clean_tmp, clean_nb), "clean file should not have changed"
 
     out, err = capsys.readouterr()
-    assert out == f"Rewriting {raw_file}\n"
+    assert out == f"Rewriting {raw_tmp}\n"
     assert err == ""
 
-    ret = main([clean_file])
+    ret = main([clean_tmp])
     assert ret == 0, "expected exit code 0 when no files were changed"
     out, err = capsys.readouterr()
     assert out == err == ""
 
 
-def test_main_print_version(capsys):
+def test_main_print_version(capsys: CaptureFixture[str]) -> None:
 
     with pytest.raises(SystemExit):
         ret_val = main(["-v"])
