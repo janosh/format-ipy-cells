@@ -11,18 +11,18 @@ from format_ipy_cells.helpers import (
 
 
 @pytest.mark.parametrize("raw_delim", ["#    %%", "#%%"])
-def test_format_cell_delimiters(raw_delim):
+def test_format_cell_delimiters(raw_delim: str) -> None:
 
     assert format_cell_delimiters(raw_delim) == "# %%"
 
 
 @pytest.mark.parametrize("input", ["# %%some comment", "# %%     some comment"])
-def test_format_comments_after_cell_delimiters(input):
+def test_format_comments_after_cell_delimiters(input: str) -> None:
 
     assert format_comments_after_cell_delimiters(input) == "# %% some comment"
 
 
-def test_remove_empty_cells():
+def test_remove_empty_cells() -> None:
     # single empty cell
     out = remove_empty_cells("# %%\n\n# %%")
     assert out == "# %%"
@@ -51,12 +51,12 @@ def test_remove_empty_cells():
         "# %%\n\t\t\n  \n    \nfoo = 'bar'",
     ],
 )
-def test_remove_empty_lines_starting_cell(input):
+def test_remove_empty_lines_starting_cell(input: str) -> None:
 
     assert remove_empty_lines_starting_cell(input) == "# %%\nfoo = 'bar'"
 
 
-def test_ensure_two_blank_lines_preceding_cell():
+def test_ensure_two_blank_lines_preceding_cell() -> None:
     # single preceding blank line
     out = ensure_two_blank_lines_preceding_cell("\n# %%\n")
     assert out == "\n\n\n# %%\n"
@@ -81,6 +81,6 @@ def test_ensure_two_blank_lines_preceding_cell():
         "\n# %%\na = 5\n\n\n# %%\n\t  \n\n   \n",
     ],
 )
-def test_delete_last_cell_if_empty(input):
+def test_delete_last_cell_if_empty(input: str) -> None:
 
     assert delete_last_cell_if_empty(input) == "\n# %%\na = 5\n"
