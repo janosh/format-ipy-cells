@@ -51,21 +51,19 @@ def fix_file(filename: str) -> int:
     return 0
 
 
-def main(argv: Sequence[str] = []) -> int:
+def main(argv: Sequence[str] = None) -> int:
     """The format-ipy-cells CLI interface.
 
     Returns:
         int: 0 if format-ipy-cells exits successfully else returns an error code.
     """
     parser = ArgumentParser()
+    parser.add_argument("filenames", nargs="*", help="Files to format")
 
     pkg_version = md.version(pkg_name := "format-ipy-cells")
     parser.add_argument(
         "-v", "--version", action="version", version=f"{pkg_name} v{pkg_version}"
     )
-
-    parser.add_argument("filenames", nargs="*", help="Filenames to format")
-
     args = parser.parse_args(argv)
 
     exit_code = 0
