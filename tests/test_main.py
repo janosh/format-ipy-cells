@@ -4,14 +4,12 @@ from importlib.metadata import version
 from pathlib import Path
 
 import pytest
-from pytest import CaptureFixture, MonkeyPatch
+from pytest import CaptureFixture
 
 from format_ipy_cells.main import main
 
 
-def test_main_format_cells(
-    tmp_path: Path, capsys: CaptureFixture[str], monkeypatch: MonkeyPatch
-) -> None:
+def test_main_format_cells(tmp_path: Path, capsys: CaptureFixture[str]) -> None:
     shutil.copy2("tests/fixtures/raw_nb.py", raw_tmp := str(tmp_path / "raw_nb.py"))
     # test we leave clean file as is and don't print logs about it
     clean_nb = "tests/fixtures/clean_nb.py"
