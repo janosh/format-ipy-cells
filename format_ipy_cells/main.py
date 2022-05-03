@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import importlib.metadata as md
 from argparse import ArgumentParser
 from typing import Sequence
