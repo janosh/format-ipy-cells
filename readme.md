@@ -10,16 +10,16 @@ Python code formatter (and [`pre-commit`](https://pre-commit.com) hook) for cell
 
 This formatter ensures
 
-- cells are preceded by two empty lines:
+- cell delimiters are preceded by two empty lines:
 
     ```py
-    # %%
+    # %% before
     foo='bar'
     # %%
     ```
 
     ```py
-    # %%
+    # %% after
     foo='bar'
 
 
@@ -29,25 +29,25 @@ This formatter ensures
 - empty cells are removed:
 
     ```py
-    # %%
+    # %% before
 
     # %%
     ```
 
     ```py
-    # %%
+    # %% after
     ```
 
-- same-line comments are separated by a single space:
+- comments on the same line as cell delimiters are separated by a single space:
 
     ```py
-    # %%some comment
+    # %%some comment before
     foo = 'bar'
     # %%    another comment
     ```
 
     ```py
-    # %% some comment
+    # %% some comment after
     foo = 'bar'
     # %% another comment
     ```
@@ -68,14 +68,14 @@ format-ipy-cells path/to/file.py
 format-ipy-cells **/*.py
 ```
 
-## As `pre-commit` hook
-
-Add this to your `.pre-commit-config.yaml`:
+### As `pre-commit` hook
 
 ```yml
+# .pre-commit-config.yaml
+
 repos
   - repo: https://github.com/janosh/format-ipy-cells
-    rev: v0.1.7
+    rev: v0.1.10
     hooks:
       - id: format-ipy-cells
 ```
