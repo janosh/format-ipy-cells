@@ -32,7 +32,6 @@ def test_main_format_cells(tmp_path: Path, capsys: CaptureFixture[str]) -> None:
 
 
 def test_main_print_version(capsys: CaptureFixture[str]) -> None:
-
     with pytest.raises(SystemExit):
         ret_val = main(["-v"])
         assert ret_val == 0

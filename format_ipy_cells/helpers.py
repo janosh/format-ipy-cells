@@ -1,6 +1,5 @@
 import re
 
-
 # use re.MULTILINE flag (equals inline modifier (?m)) to make ^ and $ match
 # and start/end of each line instead of just start/end of whole string
 # https://docs.python.org/3/library/re.html#re.MULTILINE
