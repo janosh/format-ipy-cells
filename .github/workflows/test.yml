@@ -39,9 +39,10 @@ jobs:
 
       - name: Build and upload dist
         run: |
-          pip install setuptools wheel twine
-          python setup.py sdist bdist_wheel
-          twine upload --skip-existing dist/*.tar.gz
+          pip install build twine
+          python -m build
+          twine check dist/* --strict
+          twine upload --skip-existing --repository-url https://upload.pypi.org/legacy dist/*.tar.gz
         env:
           TWINE_USERNAME: janosh
-          PYPI_TOKEN: ${{ secrets.TWINE_PASSWORD }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
