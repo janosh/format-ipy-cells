@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "format-ipy-cells"
+version = "0.1.10"
+description = "Format cells in interactive Python notebooks."
+authors = [{ name = "Janosh Riebesell", email = "janosh.riebesell@gmail.com" }]
+license = { file = "license" }
+readme = 'readme.md'
+keywords = [
+    "interactive",
+    "python",
+    "jupyter",
+    "ipython",
+    "code formatting",
+    "pre-commit hook",
+]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/janosh/format-ipy-cells"
+Package = "https://pypi.org/project/format-ipy-cells"
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov"]
+
+[project.scripts]
+format-ipy-cells = "format_ipy_cells.main:main"
+
+[tool.setuptools.packages.find]
+include = ["format_ipy_cells"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
