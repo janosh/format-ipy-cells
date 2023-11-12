@@ -4,12 +4,11 @@ from importlib.metadata import version
 from pathlib import Path
 
 import pytest
-from pytest import CaptureFixture
 
 from format_ipy_cells.main import main
 
 
-def test_main_format_cells(tmp_path: Path, capsys: CaptureFixture[str]) -> None:
+def test_main_format_cells(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     shutil.copy2("tests/fixtures/raw_nb.py", raw_tmp := str(tmp_path / "raw_nb.py"))
     # test we leave clean file as is and don't print logs about it
     clean_nb = "tests/fixtures/clean_nb.py"
@@ -31,10 +30,9 @@ def test_main_format_cells(tmp_path: Path, capsys: CaptureFixture[str]) -> None:
     assert out == err == ""
 
 
-def test_main_print_version(capsys: CaptureFixture[str]) -> None:
-    with pytest.raises(SystemExit):
-        ret_val = main(["-v"])
-        assert ret_val == 0
+def test_main_print_version(capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit, match="^0$"):
+        main(["-v"])
 
     stdout, stderr = capsys.readouterr()
 

@@ -1,6 +1,6 @@
 import importlib.metadata as md
 from argparse import ArgumentParser
-from typing import Sequence
+from collections.abc import Sequence
 
 from format_ipy_cells.helpers import (
     delete_last_cell_if_empty,
@@ -49,7 +49,7 @@ def fix_file(filename: str) -> int:
     return 0
 
 
-def main(argv: Sequence[str] = None) -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     """The format-ipy-cells CLI interface.
 
     Returns:
@@ -60,7 +60,10 @@ def main(argv: Sequence[str] = None) -> int:
 
     pkg_version = md.version(pkg_name := "format-ipy-cells")
     parser.add_argument(
-        "-v", "--version", action="version", version=f"{pkg_name} v{pkg_version}"
+        "-v",
+        "--version",
+        action="version",
+        version=f"{pkg_name} v{pkg_version}",
     )
     args = parser.parse_args(argv)
 
