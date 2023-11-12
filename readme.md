@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/janosh/format-ipy-cells/actions/workflows/test.yml/badge.svg)](https://github.com/janosh/format-ipy-cells/actions/workflows/test.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/janosh/format-ipy-cells/main.svg)](https://results.pre-commit.ci/latest/github/janosh/format-ipy-cells/main)
-[![Requires Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python&logoColor=white)](https://python.org/downloads)
+[![Requires Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg?logo=python&logoColor=white)](https://python.org/downloads)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![PyPI](https://img.shields.io/pypi/v/format-ipy-cells?logo=pypi&logoColor=white)](https://pypi.org/project/format-ipy-cells)
 

@@ -15,9 +15,9 @@ def test_format_cell_delimiters(raw_delim: str) -> None:
     assert format_cell_delimiters(raw_delim) == "# %%"
 
 
-@pytest.mark.parametrize("input", ["# %%some comment", "# %%     some comment"])
-def test_format_comments_after_cell_delimiters(input: str) -> None:
-    assert format_comments_after_cell_delimiters(input) == "# %% some comment"
+@pytest.mark.parametrize("line", ["# %%some comment", "# %%     some comment"])
+def test_format_comments_after_cell_delimiters(line: str) -> None:
+    assert format_comments_after_cell_delimiters(line) == "# %% some comment"
 
 
 def test_remove_empty_cells() -> None:
@@ -39,7 +39,7 @@ def test_remove_empty_cells() -> None:
 
 
 @pytest.mark.parametrize(
-    "input",
+    "line",
     [
         # cell with single blank line between delimiter and first code line
         "# %%\n\nfoo = 'bar'",
@@ -49,8 +49,8 @@ def test_remove_empty_cells() -> None:
         "# %%\n\t\t\n  \n    \nfoo = 'bar'",
     ],
 )
-def test_remove_empty_lines_starting_cell(input: str) -> None:
-    assert remove_empty_lines_starting_cell(input) == "# %%\nfoo = 'bar'"
+def test_remove_empty_lines_starting_cell(line: str) -> None:
+    assert remove_empty_lines_starting_cell(line) == "# %%\nfoo = 'bar'"
 
 
 def test_ensure_two_blank_lines_preceding_cell() -> None:
@@ -68,7 +68,7 @@ def test_ensure_two_blank_lines_preceding_cell() -> None:
 
 
 @pytest.mark.parametrize(
-    "input",
+    "line",
     [
         # empty last cell containing single blank line
         "\n# %%\na = 5\n\n\n# %%\n",
@@ -78,5 +78,5 @@ def test_ensure_two_blank_lines_preceding_cell() -> None:
         "\n# %%\na = 5\n\n\n# %%\n\t  \n\n   \n",
     ],
 )
-def test_delete_last_cell_if_empty(input: str) -> None:
-    assert delete_last_cell_if_empty(input) == "\n# %%\na = 5\n"
+def test_delete_last_cell_if_empty(line: str) -> None:
+    assert delete_last_cell_if_empty(line) == "\n# %%\na = 5\n"
