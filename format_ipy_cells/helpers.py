@@ -96,3 +96,24 @@ def delete_last_cell_if_empty(text: str) -> str:
     """
     # \Z matches only at end of string
     return re.sub(r"(?m)\s+^# %%\s*\Z", r"\n", text)
+
+
+def single_blank_line_after_doc_string(text: str) -> str:
+    """Ensure single blank line between cell delimiter and preceding module doc string.
+
+    Added to avoid clash with ruff format. Started enforcing single blank line in 0.3.0.
+
+    --- before ---
+    '''module doc string.'''
+
+
+    # %%
+    some_code = 'here'
+
+    --- after ---
+    '''module doc string.'''
+
+    # %%
+    some_code = 'here'
+    """
+    return re.sub(r'(?m)(["\']{3})\n+(# %%)', r"\1\n\n\2", text)

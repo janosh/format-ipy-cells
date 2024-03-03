@@ -9,6 +9,7 @@ from format_ipy_cells.helpers import (
     format_comments_after_cell_delimiters,
     remove_empty_cells,
     remove_empty_lines_starting_cell,
+    single_blank_line_after_doc_string,
 )
 
 
@@ -38,6 +39,8 @@ def fix_file(filename: str) -> int:
     text = ensure_two_blank_lines_preceding_cell(text)
 
     text = delete_last_cell_if_empty(text)
+
+    text = single_blank_line_after_doc_string(text)
 
     if orig_text != text:
         print(f"Rewriting {filename}")
