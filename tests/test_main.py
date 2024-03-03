@@ -1,3 +1,4 @@
+import difflib
 import filecmp
 import shutil
 from importlib.metadata import version
@@ -15,10 +16,18 @@ def test_main_format_cells(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -
     shutil.copy2(clean_nb, clean_tmp := str(tmp_path / "clean_nb.py"))
 
     ret = main((raw_tmp, clean_tmp))
-
     assert ret == 1
-    assert filecmp.cmp(raw_tmp, clean_nb), "Formatted file has unexpected content"
-    assert filecmp.cmp(clean_tmp, clean_nb), "clean file should not have changed"
+
+    with open(clean_nb) as file, open(clean_tmp) as tmp_file:
+        clean_lines, tmp_lines = file.readlines(), tmp_file.readlines()
+    file_diff = "\n".join(difflib.unified_diff(clean_lines, tmp_lines))
+
+    assert filecmp.cmp(
+        raw_tmp, clean_nb, shallow=False
+    ), f"Formatted file has unexpected content:\n{file_diff}"
+    assert filecmp.cmp(
+        clean_tmp, clean_nb, shallow=False
+    ), "clean file should not have changed"
 
     out, err = capsys.readouterr()
     assert out == f"Rewriting {raw_tmp}\n"

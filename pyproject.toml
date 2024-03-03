@@ -54,6 +54,7 @@ no_implicit_optional = false
 target-version = "py310"
 select = ["ALL"]
 ignore = [
+    "COM812", # trailing comma missing
     "D100",   # Missing docstring in public module
     "D104",   # Missing docstring in public package
     "D205",   # 1 blank line required between summary line and description
