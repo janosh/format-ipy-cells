@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "format-ipy-cells"
-version = "0.1.10"
+version = "0.1.11"
 description = "Format cells in interactive Python notebooks."
 authors = [{ name = "Janosh Riebesell", email = "janosh.riebesell@gmail.com" }]
 license = { file = "license" }
