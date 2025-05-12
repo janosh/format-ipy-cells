@@ -1,3 +1,5 @@
+"""format_ipy_cells utility functions."""
+
 import re
 
 # use re.MULTILINE flag (equals inline modifier (?m)) to make ^ and $ match
