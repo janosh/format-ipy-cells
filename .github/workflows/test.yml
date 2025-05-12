@@ -7,41 +7,15 @@ on:
     branches: [main]
   release:
     types: [published]
+  workflow_dispatch:
+  workflow_call:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v4
-
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-          cache: pip
-
-      - name: Install format-ipy-cells and test deps
-        run: pip install .[test]
-
-      - name: Run tests
-        id: tests
-        run: pytest --cov .
-
-  release:
-    runs-on: ubuntu-latest
-    needs: tests
-    if: github.event_name == 'release' && needs.tests.result == 'success'
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v4
-
-      - name: Build and upload dist
-        run: |
-          pip install build twine
-          python -m build
-          twine check dist/* --strict
-          twine upload --skip-existing --repository-url https://upload.pypi.org/legacy dist/*.tar.gz
-        env:
-          TWINE_USERNAME: janosh
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    uses: janosh/workflows/.github/workflows/pytest.yml@main
+    with:
+      os: ${{ matrix.os }}
+      install-cmd: pip install .[test]

@@ -1,16 +1,10 @@
+"""format_ipy_cells CLI interface."""
+
 import importlib.metadata as md
 from argparse import ArgumentParser
 from collections.abc import Sequence
 
-from format_ipy_cells.helpers import (
-    delete_last_cell_if_empty,
-    ensure_two_blank_lines_preceding_cell,
-    format_cell_delimiters,
-    format_comments_after_cell_delimiters,
-    remove_empty_cells,
-    remove_empty_lines_starting_cell,
-    single_blank_line_after_doc_string,
-)
+from format_ipy_cells import helpers
 
 
 def fix_file(filename: str) -> int:
@@ -26,21 +20,21 @@ def fix_file(filename: str) -> int:
     # strip whitespace from start of file and from end of every line
     text = "\n".join(line.rstrip() for line in text.lstrip().split("\n"))
 
-    text = format_cell_delimiters(text)
+    text = helpers.format_cell_delimiters(text)
 
-    text = format_comments_after_cell_delimiters(text)
+    text = helpers.format_comments_after_cell_delimiters(text)
 
-    text = remove_empty_cells(text)
+    text = helpers.remove_empty_cells(text)
 
-    text = remove_empty_lines_starting_cell(text)
+    text = helpers.remove_empty_lines_starting_cell(text)
 
-    text = ensure_two_blank_lines_preceding_cell(text)
+    text = helpers.ensure_two_blank_lines_preceding_cell(text)
 
-    text = ensure_two_blank_lines_preceding_cell(text)
+    text = helpers.ensure_two_blank_lines_preceding_cell(text)
 
-    text = delete_last_cell_if_empty(text)
+    text = helpers.delete_last_cell_if_empty(text)
 
-    text = single_blank_line_after_doc_string(text)
+    text = helpers.single_blank_line_after_doc_string(text)
 
     if orig_text != text:
         print(f"Rewriting {filename}")
