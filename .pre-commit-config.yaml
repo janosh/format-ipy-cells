@@ -8,14 +8,14 @@ exclude: tests/fixtures/raw_nb.py
 
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.9
+    rev: v0.12.2
     hooks:
       - id: ruff
         args: [--fix]
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
+    rev: v1.16.1
     hooks:
       - id: mypy
 
@@ -38,14 +38,14 @@ repos:
         args: [--check-filenames]
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.32.0
+    rev: v1
     hooks:
       - id: typos
         types: [text]
         args: []
 
   - repo: https://github.com/lycheeverse/lychee
-    rev: v0.15.1
+    rev: nightly
     hooks:
       - id: lychee
         args: []
